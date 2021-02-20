@@ -2,10 +2,11 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 
 type Props = {
+  className?: string,
   rect?: DOMRect
 };
 
-export function Blikvanger({ rect }: Props) {
+export function Blikvanger({ className, rect }: Props) {
   const [visibleRect, setVisibleRect] = useState<DOMRect>();
 
   useEffect(() => {
@@ -16,7 +17,7 @@ export function Blikvanger({ rect }: Props) {
 
   return (
     <div
-      className="blikvanger"
+      className={className}
       style={visibleRect ? {
         top: visibleRect.top + window.scrollY,
         left: visibleRect.left + window.scrollX,

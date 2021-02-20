@@ -3,7 +3,11 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { Blikvanger } from './Blikvanger';
 
-export function Blik() {
+type Props = {
+  className?: string
+};
+
+export function Blik({ className }: Props) {
   const [rect, setRect] = useState<DOMRect>();
   const onFocus = useCallback((e: FocusEvent) => {
     if (!(e.target instanceof HTMLElement)) {
@@ -44,6 +48,6 @@ export function Blik() {
   }, [onFocus, onBlur]);
 
   return (
-    <Blikvanger rect={rect}/>
+    <Blikvanger className={className} rect={rect}/>
   );
 }
