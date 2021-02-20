@@ -8,46 +8,45 @@ type Props = {
 };
 
 export function Blik({ className }: Props) {
+  const [active, setActive] = useState(false);
   const [rect, setRect] = useState<DOMRect>();
+  const onKey = useCallback((e: KeyboardEvent) => {
+    if (e.key === 'Tab') {
+      setActive(true);
+    }
+  }, [setActive]);
   const onFocus = useCallback((e: FocusEvent) => {
-    if (!(e.target instanceof HTMLElement)) {
-      return;
+    if (e.target instanceof HTMLElement) {
+      setRect(e.target.getBoundingClientRect());
     }
-
-    setRect(e.target.getBoundingClientRect());
   }, [setRect]);
-  const onBlur = useCallback((e: Event) => {
-    if (e instanceof MouseEvent && e.target === document.activeElement) {
-      return;
-    }
-
-    setRect(undefined);
-  }, [setRect]);
+  const onClick = useCallback(() => setActive(false), [setActive]);
+  const onBlur = useCallback(() => setRect(undefined), [setRect]);
   const onResize = useCallback(() => requestAnimationFrame(() => {
     const current = document.activeElement;
 
-    if (!current) {
-      return;
+    if (current) {
+      setRect(current.getBoundingClientRect());
     }
-
-    setRect(current.getBoundingClientRect());
   }), [setRect]);
 
   useEffect(() => {
+    document.addEventListener('keydown', onKey);
     document.addEventListener('focusin', onFocus);
-    document.addEventListener('mousedown', onBlur);
+    document.addEventListener('mousedown', onClick);
     window.addEventListener('blur', onBlur);
     window.addEventListener('resize', onResize);
 
     return () => {
+      document.removeEventListener('keydown', onKey);
       document.removeEventListener('focusin', onFocus);
-      document.removeEventListener('mousedown', onBlur);
+      document.removeEventListener('mousedown', onClick);
       window.removeEventListener('blur', onBlur);
       window.removeEventListener('resize', onResize);
     };
-  }, [onFocus, onBlur]);
+  }, [onKey, onFocus, onClick, onBlur, onResize]);
 
   return (
-    <Blikvanger className={className} rect={rect}/>
+    <Blikvanger className={className} rect={active ? rect : undefined}/>
   );
 }
