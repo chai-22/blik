@@ -1,0 +1,48 @@
+{
+  "name": "blik",
+  "version": "1.0.0",
+  "description": "The prettiest focus highlight.",
+  "main": "lib/index.js",
+  "module": "lib/index.es.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "prebuild": "npm run lint && npm run clean",
+    "build": "rollup -c rollup.config.ts",
+    "lint": "tslint \"src/**/*.ts?(x)\"",
+    "clean": "rimraf lib/",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/houfio/blik.git"
+  },
+  "keywords": [
+    "react",
+    "focus",
+    "a11y"
+  ],
+  "files": [
+    "src/",
+    "lib/"
+  ],
+  "author": "houfio",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/houfio/blik/issues"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^17.1.0",
+    "@rollup/plugin-node-resolve": "^11.2.0",
+    "@types/react": "^17.0.2",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.39.0",
+    "rollup-plugin-filesize": "^9.1.0",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "tslint": "^6.1.3",
+    "tslint-react": "^5.0.0",
+    "typescript": "^4.1.5"
+  }
+}

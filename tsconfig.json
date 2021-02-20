@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "esnext",
+    "jsx": "react",
+    "rootDir": "./src",
+    "moduleResolution": "node",
+    "strict": true,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+    "declarationDir": "./lib",
+    "skipLibCheck": true,
+  },
+  "include": [
+    "src"
+  ]
+}
